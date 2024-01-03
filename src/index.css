@@ -1,0 +1,38 @@
+:root {
+  --font: "Poppins", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  background-color: #2d3250;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-size: 1.6rem;
+  font-family: var(--font);
+  text-rendering: optimizeSpeed;
+  min-height: 100vh;
+  height: 100%;
+  position: relative;
+}
+
+button {
+  outline: none;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+}
