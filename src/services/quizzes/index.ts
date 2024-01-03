@@ -4,7 +4,7 @@ import { Quiz, createQuizDto } from "../../types/quiz";
 export const createQuiz = async (quiz: createQuizDto) => {
   try {
     const { data } = await axios.post(
-      `http://localhost:8000/api/v1/quizzes`,
+      `https://back-code-challenge-master-production.up.railway.app/api/v1/quizzes`,
       quiz
     );
     window.location.href = "/quiz";
@@ -17,6 +17,8 @@ export const createQuiz = async (quiz: createQuizDto) => {
 };
 
 export const getQuizzes = async () => {
-  const { data } = await axios.get(`http://localhost:8000/api/v1/quizzes`);
+  const { data } = await axios.get(
+    `https://back-code-challenge-master-production.up.railway.app/api/v1/quizzes`
+  );
   return data as Quiz[];
 };
