@@ -3,7 +3,7 @@ import { getQuizzes } from "../../services";
 
 export const useQuizzes = () => {
   const { isLoading, data: quizzes } = useQuery({
-    queryKey: ["questions"],
+    queryKey: ["quizzes"],
     queryFn: () => getQuizzes(),
   });
 

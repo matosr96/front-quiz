@@ -1,10 +1,19 @@
 import { useState } from "react";
 import styles from "./Quiz.module.css";
-import { useQuizzes } from "../../hooks";
+import { useQuizBySlug, useQuizzes } from "../../hooks";
 import { Question } from "../../types";
 import { createQuizResult } from "../../services";
+import { useLocation } from "react-router-dom";
 
 const QuizScreen = () => {
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const slug = searchParams.get("name");
+  const { quiz } = useQuizBySlug(slug || "");
+
+  console.log(slug);
+  console.log(quiz);
+
   const { quizzes } = useQuizzes();
   const [email, setEmail] = useState("");
   const [userAnswers, setUserAnswers] = useState<{ [key: string]: string }>({});

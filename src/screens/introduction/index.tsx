@@ -2,11 +2,13 @@ import { useCallback, useState } from "react";
 import styles from "./Quiz.module.css";
 import { useQuestion } from "../../hooks";
 import { createQuiz } from "../../services/quizzes";
+import slugify from "slugify";
 
 const IntroductionScreen = () => {
   const { questions } = useQuestion();
   const [quiz, setQuiz] = useState({
     name: "",
+    slug: "",
     response_code: 0,
     results: [],
   });
@@ -23,7 +25,13 @@ const IntroductionScreen = () => {
   );
 
   const submitCreateHandler = async () => {
-    const newData = { ...quiz, results: questions.results };
+    const slug = slugify(quiz.name, {
+      replacement: "-",
+      lower: true,
+      remove: /[*+~.()'"!:@]/g,
+    });
+
+    const newData = { ...quiz, results: questions.results, slug: slug };
     try {
       await createQuiz(newData);
     } catch (error) {

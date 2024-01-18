@@ -11,6 +11,7 @@ interface Question {
 export interface Quiz {
   quiz_id: string;
   name: string;
+  slug: string;
   response_code: number;
   results: Question[];
 }
