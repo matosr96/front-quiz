@@ -4,15 +4,15 @@ import { useQuizBySlug, useQuizzes } from "../../hooks";
 import { Question } from "../../types";
 import { createQuizResult } from "../../services";
 import { useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const QuizScreen = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const searchParams = new URLSearchParams(location.search);
   const slug = searchParams.get("name");
   const { quiz } = useQuizBySlug(slug || "");
-
-  console.log(slug);
-  console.log(quiz);
 
   const { quizzes } = useQuizzes();
   const [email, setEmail] = useState("");
@@ -31,7 +31,6 @@ const QuizScreen = () => {
       [questionId]: userAnswer,
     }));
   };
-
   const handleSubmit = async () => {
     const quizResults = {
       quiz_id: randomQuiz.quiz_id,
@@ -43,14 +42,27 @@ const QuizScreen = () => {
       })),
     };
 
-    createQuizResult(quizResults);
+    createQuizResult(quizResults)
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Quiz Completed!",
+          text: "Thank you for completing the quiz.",
+          confirmButtonText: "OK",
+        }).then(() => {
+          navigate("/");
+        });
+      })
+      .catch((error) => {
+        console.error("Error creating quiz result:", error);
+      });
   };
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.title}>
-          <h1>{randomQuiz?.name}</h1>
+          <h1>{quiz?.name}</h1>
         </div>
 
         <div className={styles.input}>
@@ -64,7 +76,7 @@ const QuizScreen = () => {
         </div>
 
         <div className={styles.questionsContainer}>
-          {randomQuiz?.results?.map((question: Question, index: number) => (
+          {quiz?.results?.map((question: Question, index: number) => (
             <div key={index} className={styles.question}>
               <span className={styles.category}>
                 Category: {question.category}

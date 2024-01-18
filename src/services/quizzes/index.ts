@@ -33,5 +33,5 @@ export const getQuizBySlugApi = async (slug: string) => {
   const { data } = await axios.get(
     `https://back-code-challenge-master-production.up.railway.app/api/v1/quiz-by-slug/${slug}`
   );
-  return data as Quiz[];
+  return data as Quiz;
 };

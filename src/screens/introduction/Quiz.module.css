@@ -16,7 +16,7 @@ p {
   text-align: center;
 }
 
-.container a {
+.container button {
   padding: 1rem;
   border-radius: 0.4rem;
   font-weight: 600;
